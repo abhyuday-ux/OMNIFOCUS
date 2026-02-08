@@ -1,0 +1,26 @@
+name: Deploy OMNIFOCUS to GitHub Pages
+
+on:
+  push:
+    branches: [main] # Runs every time you push to the main branch
+
+permissions:
+  contents: write # Important: Gives GitHub permission to create the deployment branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Install and Build 🏗️
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy 🚀
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # Vite always builds into the 'dist' folder

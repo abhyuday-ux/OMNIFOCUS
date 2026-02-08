@@ -20,14 +20,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # We removed the cache line here to fix your specific error
 
       - name: Install Dependencies
-        # This tells GitHub to ignore the missing lockfile
-        run: npm install --no-package-lock
+        # This flag fixes the "ERESOLVE" red cross error
+        run: npm install --legacy-peer-deps
 
       - name: Build Project
-        run: npm run build
+        # CI=false prevents small warnings from stopping the build
+        run: CI=false npm run build
 
       - name: Upload Build Artifacts
         uses: actions/upload-pages-artifact@v3

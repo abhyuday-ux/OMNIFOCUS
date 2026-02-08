@@ -20,10 +20,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # Cache line removed to fix the error
+          # We removed the cache line here to fix your specific error
 
       - name: Install Dependencies
-        run: npm install
+        # This tells GitHub to ignore the missing lockfile
+        run: npm install --no-package-lock
 
       - name: Build Project
         run: npm run build
